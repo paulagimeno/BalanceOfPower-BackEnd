@@ -1,5 +1,5 @@
 const express = require('express');
-const {getCharacters, addCharacter} = require('./controllers/CharacterController');
+const {getCharacters, addCharacter} = require('../controllers/CharacterControllers');
 
 const router = express.Router();
 const upload = require('../../middleware/upload.files');

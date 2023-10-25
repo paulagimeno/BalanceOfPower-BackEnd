@@ -1,7 +1,7 @@
 const express = require('express');
-const {connectDb} = require('path del fichero database.js');
-const routeCharacters = require('path del fichero de routes');
-const env = require(dotenv);
+const {connectDb} = require('./src/utils/database');
+const routeCharacters = require('./src/api/routes/CharacterRoute');
+const env = require('dotenv');
 env.config();
 
 
