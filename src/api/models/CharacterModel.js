@@ -13,8 +13,9 @@ const characterSchema = new Schema ({
     ability2: {type: String, enum: ['Execute', 'Heal', 'Block'], required: true},
     crit: {type: Number, required: true},
     speed: {type: Number, required: true},
-    strenght: {type: Number, required: true},
+    strenght: {type: [Number], required: true},
     defense: {type: Number, required: true},
+    hp: {type: Number, required: true},
 }, {
     collection: 'characters'
 });
