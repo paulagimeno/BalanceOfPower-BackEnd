@@ -6,10 +6,12 @@ env.config();
 
 
 const app = express();
-connectDb()
+
+
+
+app.use(express.json());
 
 const cloudinary = require("cloudinary").v2;
-app.use(express.json());
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -17,6 +19,8 @@ cloudinary.config({
     api_secret: process.env.API_SECRET,
 });
 
+
+connectDb()
 app.use('/characters', routeCharacters)
 
 
