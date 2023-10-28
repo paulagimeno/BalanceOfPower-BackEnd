@@ -49,6 +49,24 @@ const updateCharacter = async (req, res) => {
 
 }
 
-module.exports = { getCharacters, addCharacter, updateCharacter };
+//DELETE
+const deleteCharacter = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleteCharacter = await Characters.findByIdAndDelete(id);
+        if (!deleteCharacter) {
+            return res.status(404).json({ message: "Character does not exist" })
+        }
+        return res.status(200).json(deleteCharacter)
+
+    } catch (error) {
+
+    }
+}
+
+
+
+
+module.exports = { getCharacters, addCharacter, updateCharacter, deleteCharacter };
 
 

@@ -3,14 +3,12 @@ const {connectDb} = require('./src/utils/database');
 const routeCharacters = require('./src/api/routes/CharacterRoute');
 const env = require('dotenv');
 env.config();
+const cors = require('cors');
 
 
 const app = express();
-
-
-
-app.use(express.json());
-
+connectDb()
+app.use(cors());
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
