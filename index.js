@@ -5,10 +5,11 @@ const env = require('dotenv');
 env.config();
 const cors = require('cors');
 
-
 const app = express();
 connectDb()
+app.use(express.json());
 app.use(cors());
+
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({

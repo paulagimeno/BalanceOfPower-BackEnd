@@ -49,6 +49,29 @@ const updateCharacter = async (req, res) => {
 
 }
 
+const updateAvatar = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const characterBody = {...req.body};
+        characterBody._id = id;
+
+        if(req.file && req.file.path){
+            characterBody.avatarImage = req.file.path;
+        }
+
+        const updateAvatar = await Characters.findByIdAndUpdate(id, characterBody, {new: true});
+
+        if(!updateAvatar){
+            return res.status(404).json({message: "character does not exist"})
+        }
+        return res.status(200).json(updateAvatar)
+    } catch (error){
+        console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+    }
+
+}
+
 //DELETE
 const deleteCharacter = async (req, res) => {
     try {
@@ -67,6 +90,6 @@ const deleteCharacter = async (req, res) => {
 
 
 
-module.exports = { getCharacters, addCharacter, updateCharacter, deleteCharacter };
+module.exports = { getCharacters, addCharacter, updateCharacter, deleteCharacter, updateAvatar };
 
 
