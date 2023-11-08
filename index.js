@@ -5,12 +5,12 @@ const env = require('dotenv');
 env.config();
 const cors = require('cors');
 
-
 const app = express();
 connectDb()
-app.use(cors());
-const cloudinary = require("cloudinary").v2;
 app.use(express.json());
+app.use(cors());
+
+const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -18,6 +18,8 @@ cloudinary.config({
     api_secret: process.env.API_SECRET,
 });
 
+
+connectDb()
 app.use('/characters', routeCharacters)
 
 

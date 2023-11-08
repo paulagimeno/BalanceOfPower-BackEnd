@@ -6,7 +6,7 @@ const addCharacter = async (req, res) => {
         const body = req.body;
         const character = new Characters(body);
         if (req.file.path) {
-            character.image = req.file.path;
+            character.avatarImage = req.file.path;
         }
         const createdCharacter = await character.save();
         return res.status(201).json(createdCharacter);
@@ -25,6 +25,71 @@ const getCharacters = async (req, res) => {
 }
 }
 
-module.exports = { getCharacters, addCharacter };
+//PUT
+const updateCharacter = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const characterBody = {...req.body};
+        characterBody._id = id;
+
+        if(req.file && req.file.path){
+            characterBody.fullBodyImage = req.file.path;
+        }
+
+        const updateCharacter = await Characters.findByIdAndUpdate(id, characterBody, {new: true});
+
+        if(!updateCharacter){
+            return res.status(404).json({message: "character does not exist"})
+        }
+        return res.status(200).json(updateCharacter)
+    } catch (error){
+        console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+    }
+
+}
+
+const updateAvatar = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const characterBody = {...req.body};
+        characterBody._id = id;
+
+        if(req.file && req.file.path){
+            characterBody.avatarImage = req.file.path;
+        }
+
+        const updateAvatar = await Characters.findByIdAndUpdate(id, characterBody, {new: true});
+
+        if(!updateAvatar){
+            return res.status(404).json({message: "character does not exist"})
+        }
+        return res.status(200).json(updateAvatar)
+    } catch (error){
+        console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+    }
+
+}
+
+//DELETE
+const deleteCharacter = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleteCharacter = await Characters.findByIdAndDelete(id);
+        if (!deleteCharacter) {
+            return res.status(404).json({ message: "Character does not exist" })
+        }
+        return res.status(200).json(deleteCharacter)
+
+    } catch (error) {
+
+    }
+}
+
+
+
+
+module.exports = { getCharacters, addCharacter, updateCharacter, deleteCharacter, updateAvatar };
 
 
